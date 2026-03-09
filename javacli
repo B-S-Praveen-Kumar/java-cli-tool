@@ -1,0 +1,204 @@
+#!/bin/bash
+
+COMMAND=$1
+PROJECT=$2
+PACKAGE=$3
+NAME=$4
+
+JAVA_KEYWORDS=(
+abstract assert boolean break byte case catch char class const continue
+default do double else enum extends final finally float for goto if
+implements import instanceof int interface long native new package
+private protected public return short static strictfp super switch
+synchronized this throw throws transient try void volatile while
+)
+
+validate_package() {
+
+if [[ ! "$PACKAGE" =~ ^[a-z]+(\.[a-z][a-z0-9]*)*$ ]]; then
+    echo "Error: Invalid package format"
+    exit 1
+fi
+
+IFS='.' read -ra PARTS <<< "$PACKAGE"
+
+for part in "${PARTS[@]}"; do
+    for keyword in "${JAVA_KEYWORDS[@]}"; do
+        if [ "$part" == "$keyword" ]; then
+            echo "Error: '$part' is a Java reserved keyword"
+            exit 1
+        fi
+    done
+done
+}
+
+create_project() {
+
+if [ -z "$PROJECT" ]; then
+    echo "Error: Project name required"
+    exit 1
+fi
+
+if [ -d "$PROJECT" ]; then
+    echo "Error: Project already exists"
+    exit 1
+fi
+
+mkdir -p "$PROJECT/src"
+
+echo "Project created:"
+echo "$PROJECT/src"
+}
+
+create_package() {
+
+if [ -z "$PROJECT" ] || [ -z "$PACKAGE" ]; then
+    echo "Usage: javacli pkg <ProjectName> <package.name>"
+    exit 1
+fi
+
+if [ ! -d "$PROJECT/src" ]; then
+    echo "Error: Project not found"
+    exit 1
+fi
+
+validate_package
+
+PACKAGE_PATH=$(echo "$PACKAGE" | tr '.' '/')
+DIR="$PROJECT/src/$PACKAGE_PATH"
+
+if [ -d "$DIR" ]; then
+    echo "Error: Package already exists"
+    exit 1
+fi
+
+mkdir -p "$DIR"
+
+echo "Package created:"
+echo "$DIR"
+}
+
+create_class() {
+
+if [ -z "$NAME" ]; then
+    echo "Usage: javacli class <ProjectName> <package.name> <ClassName>"
+    exit 1
+fi
+
+validate_package
+
+DIR="$PROJECT/src/$(echo "$PACKAGE" | tr '.' '/')"
+
+if [ ! -d "$DIR" ]; then
+    echo "Error: Package does not exist"
+    exit 1
+fi
+
+FILE="$DIR/$NAME.java"
+
+if [ -f "$FILE" ]; then
+    echo "Error: Class already exists"
+    exit 1
+fi
+
+cat <<EOF > "$FILE"
+package $PACKAGE;
+
+public class $NAME {
+
+}
+EOF
+
+echo "Class created: $FILE"
+}
+
+create_interface() {
+
+DIR="$PROJECT/src/$(echo "$PACKAGE" | tr '.' '/')"
+FILE="$DIR/$NAME.java"
+
+cat <<EOF > "$FILE"
+package $PACKAGE;
+
+public interface $NAME {
+
+}
+EOF
+
+echo "Interface created: $FILE"
+}
+
+create_enum() {
+
+DIR="$PROJECT/src/$(echo "$PACKAGE" | tr '.' '/')"
+FILE="$DIR/$NAME.java"
+
+cat <<EOF > "$FILE"
+package $PACKAGE;
+
+public enum $NAME {
+
+}
+EOF
+
+echo "Enum created: $FILE"
+}
+
+create_main() {
+
+DIR="$PROJECT/src/$(echo "$PACKAGE" | tr '.' '/')"
+FILE="$DIR/$NAME.java"
+
+cat <<EOF > "$FILE"
+package $PACKAGE;
+
+public class $NAME {
+
+    public static void main(String[] args) {
+        System.out.println("Application started");
+    }
+
+}
+EOF
+
+echo "Main class created: $FILE"
+}
+
+case "$COMMAND" in
+
+new)
+create_project
+;;
+
+pkg)
+create_package
+;;
+
+class)
+create_class
+;;
+
+interface)
+create_interface
+;;
+
+enum)
+create_enum
+;;
+
+main)
+create_main
+;;
+
+*)
+echo "Java CLI Tool"
+echo ""
+echo "Commands:"
+echo "  javacli new <ProjectName>"
+echo "  javacli pkg <ProjectName> <package>"
+echo "  javacli class <ProjectName> <package> <Class>"
+echo "  javacli interface <ProjectName> <package> <Interface>"
+echo "  javacli enum <ProjectName> <package> <Enum>"
+echo "  javacli main <ProjectName> <package> <MainClass>"
+;;
+esac
