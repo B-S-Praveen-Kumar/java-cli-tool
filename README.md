@@ -55,7 +55,7 @@ Now the command javacli will be available system-wide.
 
 ## Usage
 
-### Create a New Java Project
+### Create a New Java Project:
 
 ```bash
 $ javacli new MyProject
@@ -86,7 +86,7 @@ MyProject
 
 ### Create a Class
 
-```zsh
+```bash
 $ javacli class MyProject com.example.service ExampleService
 ```
 
@@ -108,15 +108,54 @@ public class ExampleService {
 
 ### Create an Interface
 
+```bash
+$ javacli interface MyProject com.example.repository ExampleRepository
+```
+
 ### Create an Enum
+
+```bash
+$ javacli enum MyProject com.example.model ExampleStatus
+```
 
 ### Create a Main Class
 
+```bash
+$ javacli main MyProject com.example.app Main
+```
+
 ### Generated code:
+
+```java
+package com.example.app;
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Application started");
+    }
+
+}
+```
 
 ## Example Project Structure
 
 After running several commands, your project may look like:
+
+```text
+MyProject
+└── src
+    └── com
+        └── example
+            ├── service
+            │   └── ExampleService.java
+            ├── repository
+            │   └── ExampleRepository.java
+            ├── model
+            │   └── ExampleStatus.java
+            └── app
+                └── Main.java
+```
 
 ## Validations Built Into the CLI
 
