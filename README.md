@@ -40,3 +40,68 @@ cd java-cli-tool
 ```
 
 Make the CLI executable:
+
+```bash
+chmod +x javacli
+```
+
+(Optional) Install globally so it can be used from anywhere:
+
+```bash
+sudo mv javacli /usr/local/bin/
+```
+
+Now the command javacli will be available system-wide.
+
+## Usage
+
+Create a New Java Project
+
+```bash
+javacli new MyProject
+```
+
+Project structure created:
+
+```text
+MyProject
+└── src
+```
+
+Create a Package
+
+```bash
+javacli pkg MyProject com.example.service
+```
+
+Structure created:
+
+```text
+MyProject
+└── src
+    └── com
+        └── example
+            └── service
+```
+
+Create a Class
+
+```bash
+javacli class MyProject com.example.service ExampleService
+```
+
+Generated file:
+
+```text
+MyProject/src/com/example/service/ExampleService.java
+```
+
+Example generated code:
+
+```java
+package com.example.service;
+
+public class ExampleService {
+
+}
+```
