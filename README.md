@@ -8,7 +8,7 @@ Instead of manually creating folders and boilerplate files, this CLI automates t
 
 ## Why This Tool Exists
 
-Setting up a Java project often involves repetitive steps:
+### Setting up a Java project often involves repetitive steps:
 
 - Creating project folders
 - Building package directory structures
@@ -32,14 +32,14 @@ This CLI simplifies those tasks so you can focus on writing actual code.
 
 ## Installation
 
-Clone the repository:
+### Clone the repository:
 
 ```bash
 $ git clone https://github.com/B-S-Praveen-Kumar/java-cli-tool.git
 cd java-cli-tool
 ```
 
-Make the CLI executable:
+### Make the CLI executable:
 
 ```bash
 $ chmod +x javacli
@@ -55,26 +55,26 @@ Now the command javacli will be available system-wide.
 
 ## Usage
 
-Create a New Java Project
+### Create a New Java Project
 
 ```bash
 $ javacli new MyProject
 ```
 
-Project structure created:
+### Project structure created:
 
 ```text
 MyProject
 └── src
 ```
 
-Create a Package
+### Create a Package
 
 ```bash
 $ javacli pkg MyProject com.example.service
 ```
 
-Structure created:
+### Structure created:
 
 ```text
 MyProject
@@ -84,19 +84,19 @@ MyProject
             └── service
 ```
 
-Create a Class
+### Create a Class
 
 ```zsh
 $ javacli class MyProject com.example.service ExampleService
 ```
 
-Generated file:
+### Generated file:
 
 ```text
 MyProject/src/com/example/service/ExampleService.java
 ```
 
-Example generated code:
+### Example generated code:
 
 ```java
 package com.example.service;
@@ -105,3 +105,47 @@ public class ExampleService {
 
 }
 ```
+
+### Create an Interface
+
+### Create an Enum
+
+### Create a Main Class
+
+### Generated code:
+
+## Example Project Structure
+
+After running several commands, your project may look like:
+
+## Validations Built Into the CLI
+
+The CLI automatically checks for:
+
+- Duplicate project names
+
+- Duplicate packages
+
+- Duplicate classes
+
+- Invalid Java package naming
+
+- Java reserved keywords in package names
+
+These checks help maintain a clean and consistent project structure.
+
+## Requirements
+
+- Bash shell
+
+- Unix-based environment (Linux / macOS)
+
+- Java installed (optional but recommended for development)
+
+## License
+
+This project is licensed under the MIT License.
+
+## Author
+
+Created by Praveen Kumar
