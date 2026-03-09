@@ -35,20 +35,20 @@ This CLI simplifies those tasks so you can focus on writing actual code.
 Clone the repository:
 
 ```bash
-git clone https://github.com/B-S-Praveen-Kumar/java-cli-tool.git
+$git clone https://github.com/B-S-Praveen-Kumar/java-cli-tool.git
 cd java-cli-tool
 ```
 
 Make the CLI executable:
 
 ```bash
-chmod +x javacli
+$chmod +x javacli
 ```
 
 (Optional) Install globally so it can be used from anywhere:
 
 ```bash
-sudo mv javacli /usr/local/bin/
+$sudo mv javacli /usr/local/bin/
 ```
 
 Now the command javacli will be available system-wide.
@@ -58,7 +58,7 @@ Now the command javacli will be available system-wide.
 Create a New Java Project
 
 ```bash
-javacli new MyProject
+$javacli new MyProject
 ```
 
 Project structure created:
@@ -71,7 +71,7 @@ MyProject
 Create a Package
 
 ```bash
-javacli pkg MyProject com.example.service
+$javacli pkg MyProject com.example.service
 ```
 
 Structure created:
@@ -86,8 +86,8 @@ MyProject
 
 Create a Class
 
-```bash
-javacli class MyProject com.example.service ExampleService
+```zsh
+$javacli class MyProject com.example.service ExampleService
 ```
 
 Generated file:
